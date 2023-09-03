@@ -1,0 +1,162 @@
+[
+  {
+    "title": "Matahari Terbenam di Pantai",
+    "author": "Ayu Pratiwi",
+    "publishedYear": 2020,
+    "stock": 10,
+    "description": "Sebuah kisah romantis di tepi pantai Bali.",
+    "price": 55000.0
+  },
+  {
+    "title": "Bulan Purnama di Gunung Bromo",
+    "author": "Siti Hartati",
+    "publishedYear": 2018,
+    "stock": 5,
+    "description": "Petualangan seru di Gunung Bromo.",
+    "price": 45000.0
+  },
+  {
+    "title": "Hujan di Tengah Malam",
+    "author": "Andi Susanto",
+    "publishedYear": 2019,
+    "stock": 8,
+    "description": "Kisah misteri yang terjadi saat hujan turun di tengah malam.",
+    "price": 49000.0
+  },
+  {
+    "title": "Pulau Jawa yang Indah",
+    "author": "Nina Wulandari",
+    "publishedYear": 2021,
+    "stock": 12,
+    "description": "Penjelajahan keindahan Pulau Jawa.",
+    "price": 60000.0
+  },
+  {
+    "title": "Cinta di Tepi Danau",
+    "author": "Rizky Pratama",
+    "publishedYear": 2017,
+    "stock": 6,
+    "description": "Kisah cinta yang berawal di tepi danau.",
+    "price": 42000.0
+  },
+  {
+    "title": "Petualangan Seru di Hutan Rimba",
+    "author": "Siti Rahayu",
+    "publishedYear": 2022,
+    "stock": 15,
+    "description": "Petualangan seru di hutan rimba yang penuh misteri.",
+    "price": 65000.0
+  },
+  {
+    "title": "Pantai Pasir Putih",
+    "author": "Budi Santoso",
+    "publishedYear": 2020,
+    "stock": 9,
+    "description": "Liburan romantis di pantai pasir putih.",
+    "price": 52000.0
+  },
+  {
+    "title": "Harta Karun di Pulau Terpencil",
+    "author": "Ika Wijaya",
+    "publishedYear": 2019,
+    "stock": 7,
+    "description": "Misi pencarian harta karun di pulau terpencil.",
+    "price": 48000.0
+  },
+  {
+    "title": "Rahasia Taman Bunga",
+    "author": "Dewi Permata",
+    "publishedYear": 2021,
+    "stock": 11,
+    "description": "Misteri di balik taman bunga yang indah.",
+    "price": 58000.0
+  },
+  {
+    "title": "Lembah Hijau yang Damai",
+    "author": "Agus Setiawan",
+    "publishedYear": 2018,
+    "stock": 4,
+    "description": "Perjalanan damai di lembah hijau.",
+    "price": 41000.0
+  },
+  {
+    "title": "Kisah Anak Nelayan",
+    "author": "Siti Nurhayati",
+    "publishedYear": 2022,
+    "stock": 13,
+    "description": "Kisah inspiratif anak nelayan.",
+    "price": 62000.0
+  },
+  {
+    "title": "Perjalanan ke Puncak Gunung",
+    "author": "Rudi Susanto",
+    "publishedYear": 2020,
+    "stock": 8,
+    "description": "Perjalanan epik menuju puncak gunung tertinggi.",
+    "price": 52000.0
+  },
+  {
+    "title": "Dunia Bawah Laut yang Menakjubkan",
+    "author": "Nina Susanti",
+    "publishedYear": 2021,
+    "stock": 10,
+    "description": "Penjelajahan keindahan dunia bawah laut.",
+    "price": 58000.0
+  },
+  {
+    "title": "Petualangan di Gurun Pasir",
+    "author": "Rizki Satria",
+    "publishedYear": 2019,
+    "stock": 7,
+    "description": "Petualangan seru di gurun pasir yang luas.",
+    "price": 49000.0
+  },
+  {
+    "title": "Cinta Sejati di Bawah Bulan Purnama",
+    "author": "Ayu Dewi",
+    "publishedYear": 2018,
+    "stock": 6,
+    "description": "Kisah cinta yang bersemi di bawah bulan purnama.",
+    "price": 44000.0
+  },
+  {
+    "title": "Misteri Pulau Terlarang",
+    "author": "Siti Rahma",
+    "publishedYear": 2022,
+    "stock": 14,
+    "description": "Misteri di balik pulau terlarang yang mengerikan.",
+    "price": 63000.0
+  },
+  {
+    "title": "Kota Tua yang Menyimpan Rahasia",
+    "author": "Budi Santoso",
+    "publishedYear": 2020,
+    "stock": 9,
+    "description": "Rahasia-rahasia di kota tua yang kuno.",
+    "price": 53000.0
+  },
+  {
+    "title": "Petualangan di Negeri Awan",
+    "author": "Ika Wijaya",
+    "publishedYear": 2019,
+    "stock": 7,
+    "description": "Petualangan menembus awan di negeri yang misterius.",
+    "price": 46000.0
+  },
+  {
+    "title": "Kisah Inspiratif Seorang Petani",
+    "author": "Dewi Permata",
+    "publishedYear": 2021,
+    "stock": 12,
+    "description": "Kisah perjuangan seorang petani dalam meraih sukses.",
+    "price": 57000.0
+  },
+  {
+    "title": "Pantai Indah yang Memikat Hati",
+    "author": "Agus Setiawan",
+    "publishedYear": 2018,
+    "stock": 5,
+    "description": "Keindahan pantai yang memikat hati para pelancong.",
+    "price": 42000.0
+  }
+]

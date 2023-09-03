@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+}
+
+model User {
+  id          Int     @id @default(autoincrement()) // Unique identifier for a user
+  email       String  @unique // User's email address (unique)
+  name        String  // User's name
+  address     String  // User's address
+  phoneNumber String  // User's phone number
+  googleId    String? // Google ID for social login (optional)
+  loans       Loan[]  // Loans associated with the user
+
+  @@map(name: "users")
+}
+
+model Book {
+  id            Int          @id @default(autoincrement()) // Unique identifier for a book
+  title         String       // Title of the book
+  author        String       // Author of the book
+  publishedYear Int          // Year the book was published
+  stock         Int          // Number of copies in stock
+  description   String?      // Description of the book (optional)
+  price         Float        // Price of the book
+  imageUrl      String?      // Image URL of the book
+  loanDetails   LoanDetail[] // Loan details for this book
+
+  @@map(name: "books")
+}
+
+model Loan {
+  id            Int            @id @default(autoincrement()) // Unique identifier for a loan
+  userId        Int            // ID of the user who initiated the loan
+  loanDate      DateTime       // Date when the loan was initiated
+  dueDate       DateTime       // Due date for returning the book(s)
+  returnStatus  ReturnStatus   // Status of the loan return
+  totalAmount   Float          // Total amount of the loan
+  paymentId     String?        // Xendit payment ID (optional)
+  paymentStatus PaymentStatus? // Payment status for this loan (optional)
+  paymentMethod String?        // Payment method used (e.g., credit card, e-wallet) (optional)
+  invoiceUrl    String?        // URL to the Xendit invoice (optional)
+  expiresAt     DateTime?      // Expiration date for the payment (optional)
+
+  user        User         @relation(fields: [userId], references: [id]) // User associated with the loan
+  loanDetails LoanDetail[] // Details of books included in the loan
+
+  @@map(name: "loans")
+}
+
+model LoanDetail {
+  id       Int   @id @default(autoincrement()) // Unique identifier for a loan detail
+  loanId   Int   // ID of the loan to which this detail belongs
+  bookId   Int   // ID of the book included in the loan
+  quantity Int   // Quantity of the book in the loan
+  loanFee  Float // Loan fee (10% of the book's price)
+
+  loan Loan @relation(fields: [loanId], references: [id]) // Loan associated with this detail
+  book Book @relation(fields: [bookId], references: [id]) // Book included in the loan
+
+  @@map(name: "loanDetails")
+}
+
+enum ReturnStatus {
+  NOT_RETURNED // Book(s) not returned yet
+  RETURNED     // Book(s) returned on time
+  LATE         // Book(s) returned late
+}
+
+enum PaymentStatus {
+  PENDING // Payment is pending
+  SUCCESS // Payment was successful
+  FAILED  // Payment failed
+}
