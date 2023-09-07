@@ -13,10 +13,8 @@ generator client {
 model User {
   id          Int     @id @default(autoincrement()) // Unique identifier for a user
   email       String  @unique // User's email address (unique)
-  name        String  // User's name
-  address     String  // User's address
-  phoneNumber String  // User's phone number
-  googleId    String? // Google ID for social login (optional)
+  name        String? // User's name
+  otp         String? // User's OTP for login
   loans       Loan[]  // Loans associated with the user
 
   @@map(name: "users")

@@ -1,20 +1,14 @@
 [
   {
     "email": "fachri@hawari.dev",
-    "name": "Fachri Hawari",
-    "address": "Jl. Contoh Alamat 1",
-    "phoneNumber": "081201010101"
+    "name": "Fachri Hawari"
   },
   {
     "email": "budi@gugel.com",
-    "name": "Budi Gugel",
-    "address": "Jl. Contoh Alamat 2",
-    "phoneNumber": "081202020202"
+    "name": "Budi Gugel"
   },
   {
     "email": "jarwo@toktik.com",
-    "name": "Jarwi Toktik",
-    "address": "Jl. Contoh Alamat 3",
-    "phoneNumber": "081303030303"
+    "name": "Jarwi Toktik"
   }
 ]

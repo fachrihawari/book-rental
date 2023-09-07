@@ -7,18 +7,18 @@ import { Book } from '@prisma/client';
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private readonly prismaService: PrismaService
+    private readonly prismaService: PrismaService,
   ) {}
 
   @Get()
   getHello() {
     return {
-      message: this.appService.getHello()
-    }
+      message: this.appService.getHello(),
+    };
   }
 
   @Get('/1st')
   async getFirstBook(): Promise<Book> {
-    return this.prismaService.book.findFirst()
+    return this.prismaService.book.findFirst();
   }
 }
