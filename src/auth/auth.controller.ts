@@ -1,6 +1,7 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginWithOtpDto, VerifyOtpDto } from './auth.dto';
+import { AuthGuard } from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -15,6 +16,14 @@ export class AuthController {
   @Post('/verify-otp')
   @HttpCode(HttpStatus.OK)
   async verifyOtp(@Body() { email, otp }: VerifyOtpDto) {
-    await this.authService.verifyOtp(email, otp);
+    const accessToken = await this.authService.verifyOtp(email, otp);
+    return { accessToken }
+  }
+
+
+  @Get('/profile')
+  @UseGuards(AuthGuard)
+  async profile(@Request() req) {
+    return req.user
   }
 }

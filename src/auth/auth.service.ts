@@ -3,11 +3,15 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService
+  ) {}
 
   async sendOtp(email: string): Promise<void> {
     const user = await this.usersService.findByEmail(email);
@@ -23,10 +27,10 @@ export class AuthService {
     } else {
       await this.usersService.createWithEmailAndOtp(email, otp);
     }
-    // TODO: 2. Send OTP by Email
+    // TODO: Send OTP by Email with queue
   }
 
-  async verifyOtp(email: string, otp: string) {
+  async verifyOtp(email: string, otp: string): Promise<string> {
     const user = await this.usersService.findByEmail(email);
 
     // Check if user exists
@@ -41,5 +45,10 @@ export class AuthService {
 
     // Reset OTP to empty string
     await this.usersService.updateOtpByEmail(email, null);
+
+    // Generate access token based on user.id dan user.email
+    const accessToken = await this.jwtService.signAsync({ sub: user.id, email })
+
+    return accessToken
   }
 }
