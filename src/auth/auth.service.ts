@@ -51,4 +51,15 @@ export class AuthService {
 
     return accessToken
   }
+
+  async authenticatedUser(id: number) {
+    const user = await this.usersService.findById(id);
+
+    // Check if user exists
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return user
+  }
 }

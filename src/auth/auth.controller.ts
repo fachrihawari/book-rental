@@ -43,6 +43,6 @@ export class AuthController {
   @Get('/profile')
   @HttpCode(HttpStatus.OK)
   async profile(@Request() req) {
-    return req.user
+    return await this.authService.authenticatedUser(req.user.sub)
   }
 }

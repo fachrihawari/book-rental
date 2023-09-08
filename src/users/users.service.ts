@@ -10,6 +10,12 @@ export class UsersService {
     });
   }
 
+  findById(id: number) {
+    return this.prismaService.user.findUnique({
+      where: { id },
+    });
+  }
+
   createWithEmailAndOtp(email: string, otp?: string) {
     return this.prismaService.user.create({
       data: {
