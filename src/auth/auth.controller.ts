@@ -35,12 +35,13 @@ export class AuthController {
     return { accessToken }
   }
 
-  @Get('/profile')
   @ApiUnauthorizedResponse({ description: "Request not authorized" })
   @ApiOkResponse({
     schema: { $ref: getSchemaPath(User) }
   })
   @UseGuards(AuthGuard)
+  @Get('/profile')
+  @HttpCode(HttpStatus.OK)
   async profile(@Request() req) {
     return req.user
   }
