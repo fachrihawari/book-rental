@@ -4,17 +4,19 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { NotificationsService } from 'src/notifications/notifications.service';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    private readonly notificationsService: NotificationsService
   ) {}
 
   async sendOtp(email: string): Promise<void> {
-    const user = await this.usersService.findByEmail(email);
+    let user = await this.usersService.findByEmail(email);
 
     const otp = Math.floor(Math.random() * 9000 + 1000).toString();
     console.log(
@@ -23,11 +25,14 @@ export class AuthService {
     );
 
     if (user) {
-      await this.usersService.updateOtpByEmail(email, otp);
+      user = await this.usersService.updateOtpByEmail(email, otp);
     } else {
-      await this.usersService.createWithEmailAndOtp(email, otp);
+      user = await this.usersService.createWithEmailAndOtp(email, otp);
     }
-    // TODO: Send OTP by Email with queue
+
+    console.time("Sending Email")
+    await this.notificationsService.sendOtp(user, otp).catch(console.dir)
+    console.timeEnd("Sending Email")
   }
 
   async verifyOtp(email: string, otp: string): Promise<string> {
