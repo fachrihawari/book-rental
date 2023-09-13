@@ -28,5 +28,7 @@ export class NotificationsProcessor {
         name: userName
       }
     })
+    await job.progress(100)
+    await job.log("Send email successfully")
   }
 }
