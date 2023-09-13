@@ -18,3 +18,10 @@ export const mailerConstants: MailerOptions = {
   },
 }
 
+export const notificationsQueue = {
+  name: 'notificationsQueue',
+  jobNames: {
+    sendOtpEmail: 'sendOtpEmail'
+  }
+}
+

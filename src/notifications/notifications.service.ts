@@ -1,20 +1,23 @@
-import { MailerService } from '@nestjs-modules/mailer';
+import pick from 'lodash/pick'
 import { Injectable } from '@nestjs/common';
+import { InjectQueue } from '@nestjs/bull';
+import { Queue } from 'bull';
 import { User } from 'src/prisma/models/user';
+import { notificationsQueue } from './notifications.constants';
+import type { ISendOtpEmail } from './notifications.processor';
 
 @Injectable()
 export class NotificationsService {
-  constructor(private readonly mailerService: MailerService) {}
+  constructor(
+    @InjectQueue(notificationsQueue.name) private readonly notificationsQueue: Queue,
+  ) {}
 
   async sendOtp(user: User, otp: string) {
-    await this.mailerService.sendMail({
-      to: user.email,
-      subject: "Welcome to Book Rental!",
-      template: 'otp',
-      context: {
-        otp,
-        name: user.name
-      }
-    })
+    const data: ISendOtpEmail = {
+      otp,
+      userName: user.name,
+      userEmail: user.email
+    }
+    this.notificationsQueue.add(notificationsQueue.jobNames.sendOtpEmail, data)
   }
 }
