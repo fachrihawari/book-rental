@@ -12,7 +12,7 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
-    private readonly notificationsService: NotificationsService
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   async sendOtp(email: string): Promise<void> {
@@ -30,9 +30,9 @@ export class AuthService {
       user = await this.usersService.createWithEmailAndOtp(email, otp);
     }
 
-    console.time("Sending Email")
-    await this.notificationsService.sendOtp(user, otp).catch(console.dir)
-    console.timeEnd("Sending Email")
+    console.time('Sending Email');
+    await this.notificationsService.sendOtp(user, otp).catch(console.dir);
+    console.timeEnd('Sending Email');
   }
 
   async verifyOtp(email: string, otp: string): Promise<string> {
@@ -52,9 +52,12 @@ export class AuthService {
     await this.usersService.updateOtpByEmail(email, null);
 
     // Generate access token based on user.id dan user.email
-    const accessToken = await this.jwtService.signAsync({ sub: user.id, email })
+    const accessToken = await this.jwtService.signAsync({
+      sub: user.id,
+      email,
+    });
 
-    return accessToken
+    return accessToken;
   }
 
   async authenticatedUser(id: number) {
@@ -65,6 +68,6 @@ export class AuthService {
       throw new NotFoundException();
     }
 
-    return user
+    return user;
   }
 }

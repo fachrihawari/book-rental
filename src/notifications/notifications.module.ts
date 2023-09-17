@@ -13,10 +13,10 @@ import { BullAdapter } from '@bull-board/api/bullAdapter';
     BullModule.registerQueue({ name: notificationsQueue.name }),
     BullBoardModule.forFeature({
       name: notificationsQueue.name,
-      adapter: BullAdapter
-    })
+      adapter: BullAdapter,
+    }),
   ],
   providers: [NotificationsService, NotificationsProcessor],
-  exports: [NotificationsService]
+  exports: [NotificationsService],
 })
 export class NotificationsModule {}

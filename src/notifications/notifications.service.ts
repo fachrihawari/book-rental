@@ -1,4 +1,3 @@
-import pick from 'lodash/pick'
 import { Injectable } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
@@ -9,15 +8,16 @@ import type { ISendOtpEmail } from './notifications.processor';
 @Injectable()
 export class NotificationsService {
   constructor(
-    @InjectQueue(notificationsQueue.name) private readonly notificationsQueue: Queue,
+    @InjectQueue(notificationsQueue.name)
+    private readonly notificationsQueue: Queue,
   ) {}
 
   async sendOtp(user: User, otp: string) {
     const data: ISendOtpEmail = {
       otp,
       userName: user.name,
-      userEmail: user.email
-    }
-    this.notificationsQueue.add(notificationsQueue.jobNames.sendOtpEmail, data)
+      userEmail: user.email,
+    };
+    this.notificationsQueue.add(notificationsQueue.jobNames.sendOtpEmail, data);
   }
 }

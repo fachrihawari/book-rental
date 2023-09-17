@@ -18,9 +18,9 @@ export class AppController {
   @ApiOkResponse({
     schema: {
       properties: {
-        message: { type: 'string', example: "Hello World!" }
-      }
-    }
+        message: { type: 'string', example: 'Hello World!' },
+      },
+    },
   })
   @Get()
   getHello() {
@@ -33,8 +33,8 @@ export class AppController {
   @ApiOkResponse({
     schema: {
       nullable: true,
-      $ref: getSchemaPath(PrismaModel.Book)
-    }
+      $ref: getSchemaPath(PrismaModel.Book),
+    },
   })
   @Get('/1st')
   async getFirstBook(): Promise<Book> {

@@ -11,11 +11,11 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
     UsersModule,
     JwtModule.register({
       ...jwtConstants,
-      global: true
+      global: true,
     }),
-    NotificationsModule
+    NotificationsModule,
   ],
   controllers: [AuthController],
   providers: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}
