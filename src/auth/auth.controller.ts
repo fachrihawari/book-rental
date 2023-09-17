@@ -1,8 +1,8 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request } from '@nestjs/common';
+import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiTags, ApiUnauthorizedResponse, getSchemaPath } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LoginWithOtpDto, VerifyOtpDto } from './auth.dto';
-import { AuthGuard } from './auth.guard';
-import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiTags, ApiUnauthorizedResponse, getSchemaPath } from '@nestjs/swagger';
+import { Public } from './auth.decorators';
 import { User } from 'src/prisma/models/user';
 
 @ApiTags('Authentication')
@@ -11,6 +11,7 @@ import { User } from 'src/prisma/models/user';
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
+  @Public()
   @ApiOkResponse({ description: "OTP sent to the email" })
   @Post('/login-with-otp')
   @HttpCode(HttpStatus.OK)
@@ -18,6 +19,7 @@ export class AuthController {
     await this.authService.sendOtp(email);
   }
 
+  @Public()
   @ApiOkResponse({
     description: "User verified",
     schema: {
@@ -39,7 +41,6 @@ export class AuthController {
   @ApiOkResponse({
     schema: { $ref: getSchemaPath(User) }
   })
-  @UseGuards(AuthGuard)
   @Get('/profile')
   @HttpCode(HttpStatus.OK)
   async profile(@Request() req) {

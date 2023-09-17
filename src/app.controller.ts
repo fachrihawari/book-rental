@@ -4,6 +4,7 @@ import { ApiOkResponse, ApiTags, getSchemaPath } from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaModel } from './prisma/models';
+import { Public } from './auth/auth.decorators';
 
 @ApiTags('Default')
 @Controller()
@@ -13,6 +14,7 @@ export class AppController {
     private readonly prismaService: PrismaService,
   ) {}
 
+  @Public()
   @ApiOkResponse({
     schema: {
       properties: {
@@ -27,6 +29,7 @@ export class AppController {
     };
   }
 
+  @Public()
   @ApiOkResponse({
     schema: {
       nullable: true,
