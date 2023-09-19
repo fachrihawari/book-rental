@@ -12,7 +12,7 @@ export class NotificationsService {
     private readonly notificationsQueue: Queue,
   ) {}
 
-  async sendOtp(user: User, otp: string) {
+  sendOtp(user: User, otp: string) {
     const data: ISendOtpEmail = {
       otp,
       userName: user.name,

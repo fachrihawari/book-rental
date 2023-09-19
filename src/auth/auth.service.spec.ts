@@ -1,15 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
-import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { UsersService } from 'src/users/users.service';
 
 describe('AuthService', () => {
   let service: AuthService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AuthService, JwtService, PrismaService, UsersService],
+      providers: [AuthService],
     }).compile();
 
     service = module.get<AuthService>(AuthService);
@@ -18,4 +15,10 @@ describe('AuthService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  it('should be generate 4 digits otp code', () => {
+    const otp = service.generateOtp()
+    expect(otp).toEqual(expect.any(String))
+    expect(otp).toHaveLength(4)
+  })
 });
