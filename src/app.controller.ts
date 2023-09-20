@@ -6,9 +6,7 @@ import { Public } from './auth/auth.decorators';
 @ApiTags('Default')
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
   @Public()
   @ApiOkResponse({

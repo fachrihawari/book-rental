@@ -44,7 +44,7 @@ export class AuthController {
     let user = await this.usersService.findByEmail(email);
 
     // Generate OTP
-    const otp = this.authService.generateOtp()
+    const otp = this.authService.generateOtp();
 
     // Update or Create use with generated otp
     if (user) {
@@ -54,7 +54,7 @@ export class AuthController {
     }
 
     // Add notification
-    this.notificationsService.sendOtp(user, otp)
+    this.notificationsService.sendOtp(user, otp);
   }
 
   @Public()
