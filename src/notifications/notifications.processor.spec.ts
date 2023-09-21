@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Job } from 'bull';
 import { MailerService } from '@nestjs-modules/mailer';
-import { NotificationsProcessor, ISendOtpEmail } from './notifications.processor';
+import {
+  NotificationsProcessor,
+  ISendOtpEmail,
+} from './notifications.processor';
 
 describe('NotificationsProcessor', () => {
   let processor: NotificationsProcessor;

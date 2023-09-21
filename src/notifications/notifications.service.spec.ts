@@ -21,7 +21,7 @@ describe('NotificationsService', () => {
         {
           provide: QueueToken,
           useValue: mockQueue,
-        }
+        },
       ],
     }).compile();
 

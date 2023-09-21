@@ -82,7 +82,7 @@ describe('AuthController', () => {
         otp: '5678',
       };
 
-      const updatedUser = { ...user, otp }
+      const updatedUser = { ...user, otp };
 
       jest.spyOn(usersService, 'findByEmail').mockResolvedValue(user);
       jest

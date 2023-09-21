@@ -24,7 +24,7 @@ describe('UsersService', () => {
         name: 'Test User',
         email,
         otp: '1234',
-      }
+      };
       jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(user);
 
       const result = await service.findByEmail(email);
@@ -43,7 +43,7 @@ describe('UsersService', () => {
         name: 'Test User',
         email: 'test@example.com',
         otp: '1234',
-      }
+      };
       jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(user);
 
       const result = await service.findById(user.id);
@@ -64,8 +64,8 @@ describe('UsersService', () => {
         id: 1,
         name: 'Test User',
         email,
-        otp
-      }
+        otp,
+      };
 
       jest.spyOn(prismaService.user, 'create').mockResolvedValue(user);
 
@@ -86,8 +86,8 @@ describe('UsersService', () => {
         id: 1,
         name: 'Test User',
         email,
-        otp
-      }
+        otp,
+      };
       jest.spyOn(prismaService.user, 'update').mockResolvedValue(user);
 
       const result = await service.updateOtpByEmail(email, otp);
