@@ -16,9 +16,12 @@ describe('AuthService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should be generate 4 digits otp code', () => {
-    const otp = service.generateOtp();
-    expect(otp).toEqual(expect.any(String));
-    expect(otp).toHaveLength(4);
+  describe('generateOtp', () => {
+    it('should be generate 4 digits otp code', () => {
+      const otp = service.generateOtp();
+      expect(otp).toEqual(expect.any(String));
+      expect(otp).toHaveLength(4);
+      expect(otp).toMatch(/^\d{4}$/);
+    });
   });
 });
