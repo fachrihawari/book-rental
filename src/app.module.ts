@@ -8,13 +8,15 @@ import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/auth.guard';
+import { BooksModule } from './books/books.module';
 
 @Module({
   imports: [
-    PrismaModule,
-    AuthModule,
     BullModule.forRoot({ redis: process.env.REDIS_URL }),
     BullBoardModule.forRoot({ route: '/queues', adapter: ExpressAdapter }),
+    PrismaModule,
+    AuthModule,
+    BooksModule,
   ],
   controllers: [AppController],
   providers: [
