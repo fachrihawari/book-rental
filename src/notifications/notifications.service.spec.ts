@@ -32,7 +32,12 @@ describe('NotificationsService', () => {
 
   describe('sendOtp', () => {
     it('should add job to queue', () => {
-      const user: User = { id: 1, name: 'Test User', email: 'test@example.com', otp: null };
+      const user: User = {
+        id: 1,
+        name: 'Test User',
+        email: 'test@example.com',
+        otp: null,
+      };
       const otp = '1234';
 
       service.sendOtp(user, otp);

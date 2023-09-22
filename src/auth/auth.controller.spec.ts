@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { JwtService } from '@nestjs/jwt';
 import { getQueueToken } from '@nestjs/bull';
+import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -131,7 +132,7 @@ describe('AuthController', () => {
       jest.spyOn(usersService, 'findByEmail').mockResolvedValue(null);
 
       await expect(controller.verifyOtp({ email, otp })).rejects.toThrowError(
-        'Not Found',
+        NotFoundException,
       );
     });
 
@@ -143,7 +144,7 @@ describe('AuthController', () => {
       jest.spyOn(usersService, 'findByEmail').mockResolvedValue(user);
 
       await expect(controller.verifyOtp({ email, otp })).rejects.toThrowError(
-        'Unauthorized',
+        UnauthorizedException,
       );
     });
   });

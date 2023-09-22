@@ -59,7 +59,7 @@ describe('AuthGuard', () => {
 
     it('should throw an UnauthorizedException if no token is provided', async () => {
       const context = getContext();
-      await expect(guard.canActivate(context)).rejects.toThrow(
+      await expect(guard.canActivate(context)).rejects.toThrowError(
         UnauthorizedException,
       );
     });
@@ -74,7 +74,7 @@ describe('AuthGuard', () => {
 
       jest.spyOn(jwtService, 'verifyAsync').mockRejectedValueOnce(new Error());
 
-      await expect(guard.canActivate(context)).rejects.toThrow(
+      await expect(guard.canActivate(context)).rejects.toThrowError(
         UnauthorizedException,
       );
     });
