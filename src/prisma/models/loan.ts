@@ -1,3 +1,5 @@
+import { User } from './user';
+import { LoanDetail } from './loan_detail';
 import { ReturnStatus, PaymentStatus } from '@prisma/client';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
@@ -34,4 +36,10 @@ export class Loan {
 
   @ApiPropertyOptional({ type: Date })
   expiresAt?: Date;
+
+  @ApiProperty({ type: () => User })
+  user: User;
+
+  @ApiProperty({ isArray: true, type: () => LoanDetail })
+  loanDetails: LoanDetail[];
 }

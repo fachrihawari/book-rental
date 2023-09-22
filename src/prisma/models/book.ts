@@ -1,3 +1,4 @@
+import { LoanDetail } from './loan_detail';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class Book {
@@ -24,4 +25,7 @@ export class Book {
 
   @ApiPropertyOptional({ type: String })
   imageUrl?: string;
+
+  @ApiProperty({ isArray: true, type: () => LoanDetail })
+  loanDetails: LoanDetail[];
 }
