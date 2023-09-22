@@ -1,4 +1,3 @@
-import { Loan } from './loan';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class User {
@@ -13,7 +12,4 @@ export class User {
 
   @ApiPropertyOptional({ type: String })
   otp: string | null;
-
-  @ApiProperty({ isArray: true, type: () => Loan })
-  loans: Loan[];
 }

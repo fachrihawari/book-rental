@@ -3,6 +3,7 @@ import { getQueueToken } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { NotificationsService } from './notifications.service';
 import { notificationsQueue } from './notifications.constants';
+import { User } from 'src/prisma/models/user';
 
 describe('NotificationsService', () => {
   let service: NotificationsService;
@@ -31,7 +32,7 @@ describe('NotificationsService', () => {
 
   describe('sendOtp', () => {
     it('should add job to queue', () => {
-      const user = { id: 1, name: 'Test User', email: 'test@example.com' };
+      const user: User = { id: 1, name: 'Test User', email: 'test@example.com', otp: null };
       const otp = '1234';
 
       service.sendOtp(user, otp);

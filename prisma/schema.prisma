@@ -14,6 +14,7 @@ generator prismaClassGenerator {
   provider                = "prisma-class-generator"
   dryRun                  = false
   output                  = "../src/prisma/models"
+  separateRelationFields  = true
   preserveDefaultNullable = true
 }
 
