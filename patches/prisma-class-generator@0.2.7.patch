@@ -1,0 +1,150 @@
+diff --git a/README.md b/README.md
+index 6518c2200f2fa72180d46deb987c0238dd7ec01d..68b364338e7a36e2e0f2033b87cabdf2e73e6222 100755
+--- a/README.md
++++ b/README.md
+@@ -262,6 +262,8 @@ export class ProductDto extends IntersectionType(
+     -   set prisma client import path manually, default value is **@prisma/client**
+ -   _useNonNullAssertions_
+     -   Apply a ! after non-optional class fields to avoid strict mode warnings (Property has no initializer and is not definitely assigned in the constructor.)
++-   _preserveDefaultNullable_
++    -   Determines how null fields are handled. When set to **false** (default), it turns all null fields to undefined. Otherwise, it follows Prisma generation and adds null to the type.
+ 
+ ### **How it works?**
+ 
+diff --git a/dist/components/field.component.js b/dist/components/field.component.js
+index 77cbafd21b6a3f8d45c0e3378cc1a0a4789288f6..aa3224f920fe1a29626f5a94af336d98accf5aec 100755
+--- a/dist/components/field.component.js
++++ b/dist/components/field.component.js
+@@ -7,13 +7,18 @@ class FieldComponent extends base_component_1.BaseComponent {
+     constructor(obj) {
+         super(obj);
+         this.echo = () => {
+-            let name = this.name;
++            let name = this.name
++            let type = this.type
+             if (this.nullable === true) {
+-                name += '?';
+-            }
+-            else if (this.nonNullableAssertion === true) {
+-                name += '!';
++                if (this.preserveDefaultNullable) {
++                    type = this.type + ' | null'
++                } else {
++                    name += '?'
++                }
++            } else if (this.nonNullableAssertion === true) {
++                name += '!'
+             }
++
+             let defaultValue = '';
+             if (this.default) {
+                 defaultValue = `= ${this.default}`;
+@@ -25,7 +30,7 @@ class FieldComponent extends base_component_1.BaseComponent {
+             }
+             return field_template_1.FIELD_TEMPLATE.replace('#!{NAME}', name)
+                 .replace('#!{NAME}', name)
+-                .replace('#!{TYPE}', this.type)
++                .replace('#!{TYPE}', type)
+                 .replace('#!{DECORATORS}', this.echoDecorators())
+                 .replace('#!{DEFAULT}', defaultValue);
+         };
+diff --git a/dist/convertor.js b/dist/convertor.js
+index 5b9721ef089eeda9852da30a53eec7bad82b5f30..5fc170217292f56a61489506dbac6f764afdf66a 100755
+--- a/dist/convertor.js
++++ b/dist/convertor.js
+@@ -116,14 +116,14 @@ class PrismaConvertor {
+             const enums = model.fields.filter((field) => field.kind === 'enum');
+             classComponent.fields = model.fields
+                 .filter((field) => {
+-                if (extractRelationFields === true) {
+-                    return field.relationName;
+-                }
+-                if (extractRelationFields === false) {
+-                    return !field.relationName;
+-                }
+-                return true;
+-            })
++                    if (extractRelationFields === true) {
++                        return field.relationName;
++                    }
++                    if (extractRelationFields === false) {
++                        return !field.relationName;
++                    }
++                    return true;
++                })
+                 .map((field) => this.convertField(field));
+             classComponent.relationTypes =
+                 extractRelationFields === false ? [] : relationTypes;
+@@ -193,6 +193,9 @@ class PrismaConvertor {
+             if (this.config.useNonNullableAssertions) {
+                 field.nonNullableAssertion = true;
+             }
++            if (this.config.preserveDefaultNullable) {
++                field.preserveDefaultNullable = true
++            }
+             if (dmmfField.default) {
+                 if (typeof dmmfField.default !== 'object') {
+                     field.default = (_a = dmmfField.default) === null || _a === void 0 ? void 0 : _a.toString();
+diff --git a/dist/generator.js b/dist/generator.js
+index 45b461daad2bf207dd179a8d38c6bf6f08fb69a7..c67f84217da0f9c0459078076aeaf6aa043fe775 100755
+--- a/dist/generator.js
++++ b/dist/generator.js
+@@ -1,18 +1,18 @@
+ "use strict";
+-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
++var __createBinding = (this && this.__createBinding) || (Object.create ? (function (o, m, k, k2) {
+     if (k2 === undefined) k2 = k;
+     var desc = Object.getOwnPropertyDescriptor(m, k);
+     if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+-      desc = { enumerable: true, get: function() { return m[k]; } };
++        desc = { enumerable: true, get: function () { return m[k]; } };
+     }
+     Object.defineProperty(o, k2, desc);
+-}) : (function(o, m, k, k2) {
++}) : (function (o, m, k, k2) {
+     if (k2 === undefined) k2 = k;
+     o[k2] = m[k];
+ }));
+-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
++var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function (o, v) {
+     Object.defineProperty(o, "default", { enumerable: true, value: v });
+-}) : function(o, v) {
++}) : function (o, v) {
+     o["default"] = v;
+ });
+ var __importStar = (this && this.__importStar) || function (mod) {
+@@ -65,6 +65,10 @@ exports.PrismaClassGeneratorOptions = {
+     useNonNullableAssertions: {
+         desc: 'applies non-nullable assertions (!) to class properties',
+         defaultValue: false
++    },
++    preserveDefaultNullable: {
++        defaultValue: false,
++        desc: 'preserve default nullable behavior'
+     }
+ };
+ class PrismaClassGenerator {
+@@ -101,8 +105,8 @@ class PrismaClassGenerator {
+                 const imports = files.map((fileRow) => new import_component_1.ImportComponent((0, util_1.getRelativeTSPath)(indexFilePath, fileRow.getPath()), fileRow.prismaClass.name));
+                 const content = index_template_1.INDEX_TEMPLATE.replace('#!{IMPORTS}', imports.map((i) => i.echo('_')).join('\r\n'))
+                     .replace('#!{RE_EXPORT_CLASSES}', files
+-                    .map((f) => `	${f.prismaClass.reExportPrefixed('_')}`)
+-                    .join('\r\n'))
++                        .map((f) => `	${f.prismaClass.reExportPrefixed('_')}`)
++                        .join('\r\n'))
+                     .replace('#!{CLASSES}', files.map((f) => f.prismaClass.name).join(', '));
+                 const formattedContent = (0, util_1.prettierFormat)(content, this.prettierOptions);
+                 (0, util_1.writeTSFile)(indexFilePath, formattedContent, config.dryRun);
+@@ -136,9 +140,9 @@ class PrismaClassGenerator {
+         const output = (0, internals_1.parseEnvValue)(options.generator.output);
+         this.prettierOptions =
+             prettier.resolveConfig.sync(output, { useCache: false }) ||
+-                prettier.resolveConfig.sync(path.dirname(require.main.filename), {
+-                    useCache: false,
+-                });
++            prettier.resolveConfig.sync(path.dirname(require.main.filename), {
++                useCache: false,
++            });
+     }
+     get options() {
+         return this._options;

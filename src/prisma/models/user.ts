@@ -9,10 +9,10 @@ export class User {
   email: string;
 
   @ApiPropertyOptional({ type: String })
-  name?: string;
+  name: string | null;
 
   @ApiPropertyOptional({ type: String })
-  otp?: string;
+  otp: string | null;
 
   @ApiProperty({ isArray: true, type: () => Loan })
   loans: Loan[];

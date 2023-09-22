@@ -18,13 +18,13 @@ export class Book {
   stock: number;
 
   @ApiPropertyOptional({ type: String })
-  description?: string;
+  description: string | null;
 
   @ApiProperty({ type: Number })
   price: number;
 
   @ApiPropertyOptional({ type: String })
-  imageUrl?: string;
+  imageUrl: string | null;
 
   @ApiProperty({ isArray: true, type: () => LoanDetail })
   loanDetails: LoanDetail[];

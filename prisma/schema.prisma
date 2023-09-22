@@ -11,11 +11,10 @@ generator client {
 }
 
 generator prismaClassGenerator {
-  provider               = "prisma-class-generator"
-  dryRun                 = false
-  output                 = "../src/prisma/models"
-  separateRelationFields = false
-  makeIndexFile          = false
+  provider                = "prisma-class-generator"
+  dryRun                  = false
+  output                  = "../src/prisma/models"
+  preserveDefaultNullable = true
 }
 
 model User {

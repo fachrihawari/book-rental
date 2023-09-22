@@ -23,19 +23,19 @@ export class Loan {
   totalAmount: number;
 
   @ApiPropertyOptional({ type: String })
-  paymentId?: string;
+  paymentId: string | null;
 
   @ApiPropertyOptional({ enum: PaymentStatus, enumName: 'PaymentStatus' })
-  paymentStatus?: PaymentStatus;
+  paymentStatus: PaymentStatus | null;
 
   @ApiPropertyOptional({ type: String })
-  paymentMethod?: string;
+  paymentMethod: string | null;
 
   @ApiPropertyOptional({ type: String })
-  invoiceUrl?: string;
+  invoiceUrl: string | null;
 
   @ApiPropertyOptional({ type: Date })
-  expiresAt?: Date;
+  expiresAt: Date | null;
 
   @ApiProperty({ type: () => User })
   user: User;
