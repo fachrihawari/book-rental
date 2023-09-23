@@ -15,7 +15,6 @@ import {
   ApiOkResponse,
   ApiTags,
   ApiUnauthorizedResponse,
-  getSchemaPath,
 } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
@@ -98,7 +97,8 @@ export class AuthController {
   @ApiUnauthorizedResponse({ description: 'Request not authorized' })
   @ApiNotFoundResponse({ description: 'User not found' })
   @ApiOkResponse({
-    schema: { $ref: getSchemaPath(User) },
+    description: "User profile",
+    type: User
   })
   @Get('/profile')
   @HttpCode(HttpStatus.OK)
