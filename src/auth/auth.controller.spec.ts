@@ -4,10 +4,10 @@ import { getQueueToken } from '@nestjs/bull';
 import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { UsersService } from 'src/users/users.service';
-import { NotificationsService } from 'src/notifications/notifications.service';
-import { notificationsQueue } from 'src/notifications/notifications.constants';
+import { PrismaService } from '~/prisma/prisma.service';
+import { UsersService } from '~/users/users.service';
+import { NotificationsService } from '~/notifications/notifications.service';
+import { notificationsQueue } from '~/notifications/notifications.constants';
 
 describe('AuthController', () => {
   let controller: AuthController;

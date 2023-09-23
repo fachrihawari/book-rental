@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { NotFoundException } from '@nestjs/common';
 import { BooksController } from './books.controller';
 import { BooksService } from './books.service';
-import { Book } from 'src/prisma/models/book';
+import { Book } from '~/prisma/models/book';
 
 describe('BooksController', () => {
   let controller: BooksController;

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
-import { User } from 'src/prisma/models/user';
 import { notificationsQueue } from './notifications.constants';
 import type { ISendOtpEmail } from './notifications.processor';
+import { User } from '~/prisma/models/user';
 
 @Injectable()
 export class NotificationsService {

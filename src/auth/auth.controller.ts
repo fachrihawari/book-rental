@@ -21,9 +21,9 @@ import { JwtService } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { LoginWithOtpDto, VerifyOtpDto } from './auth.dto';
 import { Public } from './auth.decorators';
-import { User } from 'src/prisma/models/user';
-import { UsersService } from 'src/users/users.service';
-import { NotificationsService } from 'src/notifications/notifications.service';
+import { User } from '~/prisma/models/user';
+import { UsersService } from '~/users/users.service';
+import { NotificationsService } from '~/notifications/notifications.service';
 
 @ApiTags('Authentication')
 @ApiBearerAuth()

@@ -6,8 +6,8 @@ import {
   getSchemaPath,
 } from '@nestjs/swagger';
 import { BooksService } from './books.service';
-import { Book } from 'src/prisma/models/book';
-import { Public } from 'src/auth/auth.decorators';
+import { Book } from '~/prisma/models/book';
+import { Public } from '~/auth/auth.decorators';
 
 @ApiTags('Books')
 @Controller('books')

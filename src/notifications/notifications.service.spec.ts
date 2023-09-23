@@ -3,7 +3,7 @@ import { getQueueToken } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { NotificationsService } from './notifications.service';
 import { notificationsQueue } from './notifications.constants';
-import { User } from 'src/prisma/models/user';
+import { User } from '~/prisma/models/user';
 
 describe('NotificationsService', () => {
   let service: NotificationsService;
