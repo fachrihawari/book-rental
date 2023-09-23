@@ -3,7 +3,6 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
-  getSchemaPath,
 } from '@nestjs/swagger';
 import { BooksService } from './books.service';
 import { Book } from '~/prisma/models/book';
@@ -18,7 +17,8 @@ export class BooksController {
   @Public()
   @ApiOkResponse({
     description: 'Returns all books.',
-    schema: { items: { $ref: getSchemaPath(Book) } },
+    type: Book,
+    isArray: true
   })
   async findAll() {
     return await this.booksService.findAll();
@@ -28,7 +28,7 @@ export class BooksController {
   @Public()
   @ApiOkResponse({
     description: 'Returns a book by id.',
-    schema: { $ref: getSchemaPath(Book) },
+    type: Book
   })
   @ApiNotFoundResponse({ description: 'Book not found' })
   async findById(@Param('id') id: string) {
