@@ -97,8 +97,8 @@ export class AuthController {
   @ApiUnauthorizedResponse({ description: 'Request not authorized' })
   @ApiNotFoundResponse({ description: 'User not found' })
   @ApiOkResponse({
-    description: "User profile",
-    type: User
+    description: 'User profile',
+    type: User,
   })
   @Get('/profile')
   @HttpCode(HttpStatus.OK)

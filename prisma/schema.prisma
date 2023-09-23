@@ -2,12 +2,12 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider   = "postgresql"
-  url        = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider   = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 generator prismaClassGenerator {
@@ -19,41 +19,43 @@ generator prismaClassGenerator {
 }
 
 model User {
-  id          Int     @id @default(autoincrement()) // Unique identifier for a user
-  email       String  @unique // User's email address (unique)
-  name        String? // User's name
-  otp         String? // User's OTP for login
-  loans       Loan[]  // Loans associated with the user
+  id        Int        @id @default(autoincrement()) // Unique identifier for a user
+  email     String     @unique // User's email address (unique)
+  name      String? // User's name
+  otp       String? // User's OTP for login
+  loans     Loan[] // Loans associated with the user
+  wishlists Wishlist[] // Wishlists associated with the loan
 
   @@map(name: "users")
 }
 
 model Book {
   id            Int          @id @default(autoincrement()) // Unique identifier for a book
-  title         String       // Title of the book
-  author        String       // Author of the book
-  publishedYear Int          // Year the book was published
-  stock         Int          // Number of copies in stock
-  description   String?      // Description of the book (optional)
-  price         Float        // Price of the book
-  imageUrl      String?      // Image URL of the book
-  loanDetails   LoanDetail[] // Loan details for this book
+  title         String // Title of the book
+  author        String // Author of the book
+  publishedYear Int // Year the book was published
+  stock         Int // Number of copies in stock
+  description   String? // Description of the book (optional)
+  price         Float // Price of the book
+  imageUrl      String? // Image URL of the book
+  loanDetails   LoanDetail[] // Loan details associated with this book
+  wishlists     Wishlist[] // Wishlists associated with this book
 
   @@map(name: "books")
 }
 
 model Loan {
   id            Int            @id @default(autoincrement()) // Unique identifier for a loan
-  userId        Int            // ID of the user who initiated the loan
-  loanDate      DateTime       // Date when the loan was initiated
-  dueDate       DateTime       // Due date for returning the book(s)
-  returnStatus  ReturnStatus   // Status of the loan return
-  totalAmount   Float          // Total amount of the loan
-  paymentId     String?        // Xendit payment ID (optional)
-  paymentStatus PaymentStatus? // Payment status for this loan (optional)
-  paymentMethod String?        // Payment method used (e.g., credit card, e-wallet) (optional)
-  invoiceUrl    String?        // URL to the Xendit invoice (optional)
-  expiresAt     DateTime?      // Expiration date for the payment (optional)
+  userId        Int // ID of the user who initiated the loan
+  loanDate      DateTime // Date when the loan was initiated
+  dueDate       DateTime // Due date for returning the book(s)
+  returnStatus  ReturnStatus // Status of the loan return
+  totalAmount   Float // Total amount of the loan
+  paymentId     String? // Xendit payment ID (optional)
+  paymentStatus PaymentStatus? // Payment status associated with this loan (optional)
+  paymentMethod String? // Payment method used (e.g., credit card, e-wallet) (optional)
+  invoiceUrl    String? // URL to the Xendit invoice (optional)
+  expiresAt     DateTime? // Expiration date for the payment (optional)
 
   user        User         @relation(fields: [userId], references: [id]) // User associated with the loan
   loanDetails LoanDetail[] // Details of books included in the loan
@@ -63,9 +65,9 @@ model Loan {
 
 model LoanDetail {
   id       Int   @id @default(autoincrement()) // Unique identifier for a loan detail
-  loanId   Int   // ID of the loan to which this detail belongs
-  bookId   Int   // ID of the book included in the loan
-  quantity Int   // Quantity of the book in the loan
+  loanId   Int // ID of the loan to which this detail belongs
+  bookId   Int // ID of the book included in the loan
+  quantity Int // Quantity of the book in the loan
   loanFee  Float // Loan fee (10% of the book's price)
 
   loan Loan @relation(fields: [loanId], references: [id]) // Loan associated with this detail
@@ -74,14 +76,23 @@ model LoanDetail {
   @@map(name: "loanDetails")
 }
 
+model Wishlist {
+  id     Int @id @default(autoincrement()) // Unique identifier for a wishlist
+  userId Int // ID of the user who added the book to wishlists
+  bookId Int // ID of the book added to wishlists
+
+  user User @relation(fields: [userId], references: [id]) // User who added the book to wishlists
+  book Book @relation(fields: [bookId], references: [id]) // Book added to wishlists
+}
+
 enum ReturnStatus {
   NOT_RETURNED // Book(s) not returned yet
-  RETURNED     // Book(s) returned on time
-  LATE         // Book(s) returned late
+  RETURNED // Book(s) returned on time
+  LATE // Book(s) returned late
 }
 
 enum PaymentStatus {
   PENDING // Payment is pending
   SUCCESS // Payment was successful
-  FAILED  // Payment failed
+  FAILED // Payment failed
 }

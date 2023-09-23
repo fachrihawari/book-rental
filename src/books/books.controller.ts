@@ -1,9 +1,5 @@
 import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
-import {
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { BooksService } from './books.service';
 import { Book } from '~/prisma/models/book';
 import { Public } from '~/auth/auth.decorators';
@@ -18,17 +14,17 @@ export class BooksController {
   @ApiOkResponse({
     description: 'Returns all books.',
     type: Book,
-    isArray: true
+    isArray: true,
   })
   async findAll() {
-    return await this.booksService.findAll();
+    return this.booksService.findAll();
   }
 
   @Get(':id')
   @Public()
   @ApiOkResponse({
     description: 'Returns a book by id.',
-    type: Book
+    type: Book,
   })
   @ApiNotFoundResponse({ description: 'Book not found' })
   async findById(@Param('id') id: string) {

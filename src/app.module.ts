@@ -9,6 +9,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/auth.guard';
 import { BooksModule } from './books/books.module';
+import { WishlistsModule } from './wishlists/wishlists.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { BooksModule } from './books/books.module';
     PrismaModule,
     AuthModule,
     BooksModule,
+    WishlistsModule,
   ],
   controllers: [AppController],
   providers: [
