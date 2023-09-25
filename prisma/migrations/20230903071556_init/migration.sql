@@ -47,14 +47,14 @@ CREATE TABLE "loans" (
 );
 
 -- CreateTable
-CREATE TABLE "loanDetails" (
+CREATE TABLE "loan_details" (
     "id" SERIAL NOT NULL,
     "loanId" INTEGER NOT NULL,
     "bookId" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
     "loanFee" DOUBLE PRECISION NOT NULL,
 
-    CONSTRAINT "loanDetails_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "loan_details_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -64,7 +64,7 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 ALTER TABLE "loans" ADD CONSTRAINT "loans_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "loanDetails" ADD CONSTRAINT "loanDetails_loanId_fkey" FOREIGN KEY ("loanId") REFERENCES "loans"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "loan_details" ADD CONSTRAINT "loan_details_loanId_fkey" FOREIGN KEY ("loanId") REFERENCES "loans"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "loanDetails" ADD CONSTRAINT "loanDetails_bookId_fkey" FOREIGN KEY ("bookId") REFERENCES "books"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "loan_details" ADD CONSTRAINT "loan_details_bookId_fkey" FOREIGN KEY ("bookId") REFERENCES "books"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

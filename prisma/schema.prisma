@@ -73,7 +73,7 @@ model LoanDetail {
   loan Loan @relation(fields: [loanId], references: [id]) // Loan associated with this detail
   book Book @relation(fields: [bookId], references: [id]) // Book included in the loan
 
-  @@map(name: "loanDetails")
+  @@map(name: "loan_details")
 }
 
 model Wishlist {
@@ -83,6 +83,8 @@ model Wishlist {
 
   user User @relation(fields: [userId], references: [id]) // User who added the book to wishlists
   book Book @relation(fields: [bookId], references: [id]) // Book added to wishlists
+
+  @@map(name: "wishlists")
 }
 
 enum ReturnStatus {
