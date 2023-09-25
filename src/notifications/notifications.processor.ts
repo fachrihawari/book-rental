@@ -1,6 +1,6 @@
 import { Process, Processor } from '@nestjs/bull';
 import { notificationsQueue } from './notifications.constants';
-import { Job } from 'bull';
+import type { Job } from 'bull';
 import { MailerService } from '@nestjs-modules/mailer';
 
 export interface ISendOtpEmail {

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getQueueToken } from '@nestjs/bull';
-import { Queue } from 'bull';
+import type { Queue } from 'bull';
 import { NotificationsService } from './notifications.service';
 import { notificationsQueue } from './notifications.constants';
 import { User } from '~/prisma/models/user';
