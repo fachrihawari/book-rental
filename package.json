@@ -64,7 +64,7 @@
     "jest": "^29.5.0",
     "prettier": "^3.0.0",
     "prisma": "^5.3.1",
-    "prisma-class-generator": "^0.2.8",
+    "prisma-class-generator": "^0.2.7",
     "source-map-support": "^0.5.21",
     "supertest": "^6.3.3",
     "ts-jest": "^29.1.0",
@@ -94,6 +94,11 @@
     "testEnvironment": "node",
     "moduleNameMapper": {
       "^~/(.*)$": "<rootDir>/$1"
+    }
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "prisma-class-generator@0.2.7": "patches/prisma-class-generator@0.2.7.patch"
     }
   }
 }

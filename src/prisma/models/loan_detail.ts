@@ -1,6 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { LoanType } from './loan_type';
-import { BookType } from './book_type';
 
 export class LoanDetail {
   @ApiProperty({ type: Number })
