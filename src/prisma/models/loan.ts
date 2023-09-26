@@ -1,5 +1,7 @@
 import { ReturnStatus, PaymentStatus } from '@prisma/client';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { UserType } from './user_type';
+import { LoanDetailType } from './loandetail_type';
 
 export class Loan {
   @ApiProperty({ type: Number })
@@ -15,7 +17,7 @@ export class Loan {
   dueDate: Date;
 
   @ApiProperty({ enum: ReturnStatus, enumName: 'ReturnStatus' })
-  returnStatus: ReturnStatus;
+  returnStatus: ReturnStatusType;
 
   @ApiProperty({ type: Number })
   totalAmount: number;
@@ -24,7 +26,7 @@ export class Loan {
   paymentId: string | null;
 
   @ApiPropertyOptional({ enum: PaymentStatus, enumName: 'PaymentStatus' })
-  paymentStatus: PaymentStatus | null;
+  paymentStatus: PaymentStatusType | null;
 
   @ApiPropertyOptional({ type: String })
   paymentMethod: string | null;
