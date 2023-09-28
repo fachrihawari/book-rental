@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  prod:
+    build: .
+    command: pnpm start:prod
+    ports:
+      - "3000:3000"
+  dev:
+    build: .
+    command: pnpm start:dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
