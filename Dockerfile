@@ -1,11 +1,11 @@
 # Base
-FROM node:20.8.0-bookworm-slim as base
+FROM oven/bun:canary-debian as base
 
 RUN apt-get update && apt-get install -y openssl && apt-get clean
-RUN npm i -g bun
 
 WORKDIR /app
 
+COPY --from=node:20.8.0 /usr/local/bin/node /usr/local/bin/node
 COPY package.json ./
 COPY bun.lockb ./
 
@@ -13,13 +13,13 @@ RUN bun install
 
 COPY . .
 
-RUN npx prisma generate
+RUN bunx prisma generate
 
 # Production
 FROM base as prod
-RUN npm run build
-CMD npm run start:prod
+RUN bun run build
+CMD bun run start:prod
 
 # Development
 FROM base as dev
-CMD npm run start:dev
+CMD bun run start:dev
