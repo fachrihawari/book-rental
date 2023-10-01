@@ -2,13 +2,15 @@ version: "3.8"
 
 services:
   prod:
-    build: .
-    command: pnpm start:prod
+    build:
+      context: .
+      target: prod
     ports:
       - "3000:3000"
   dev:
-    build: .
-    command: pnpm start:dev
+    build:
+      context: .
+      target: dev
     ports:
       - "3000:3000"
     volumes:

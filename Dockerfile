@@ -1,19 +1,25 @@
-FROM node:20.7.0-alpine3.18 as base
+# Base
+FROM node:20.8.0-bookworm-slim as base
 
-RUN corepack enable
-RUN corepack prepare pnpm@8.8.0 --activate
-
-FROM base
+RUN apt-get update && apt-get install -y openssl && apt-get clean
+RUN npm i -g bun
 
 WORKDIR /app
 
-COPY package.json .
-COPY pnpm-lock.yaml .
-COPY patches ./patches
+COPY package.json ./
+COPY bun.lockb ./
 
-RUN pnpm install --frozen-lockfile
+RUN bun install
 
 COPY . .
 
-RUN pnpm prisma generate
-RUN pnpm build
+RUN npx prisma generate
+
+# Production
+FROM base as prod
+RUN npm run build
+CMD npm run start:prod
+
+# Development
+FROM base as dev
+CMD npm run start:dev
